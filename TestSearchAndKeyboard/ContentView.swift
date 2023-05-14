@@ -15,27 +15,30 @@ struct ContentView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             TabView {
-                VStack {
-                    Image(systemName: "globe")
-                        .imageScale(.large)
-                        .foregroundColor(.accentColor)
-                    Text("Hello, world!")
+                NavigationView {
+                    VStack {
+                        Image(systemName: "globe")
+                            .imageScale(.large)
+                            .foregroundColor(.accentColor)
+                        Text("Hello, world!")
 
-                    Button {
-                        viewStore.send(.showFirstModal)
-                    } label: {
-                        Text("Show FirstModalSearch")
+                        Button {
+                            viewStore.send(.showFirstModal)
+                        } label: {
+                            Text("Show FirstModalSearch")
+                        }
+                        .navigationTitle("Content view")
                     }
-                }
-                .padding()
-                .fullScreenCover(
-                    isPresented: viewStore.binding(
-                        get: \.firstModal,
-                        send: { _ in ContentAction.hideFirstModal }
-                    ).mappedToBool()
-                ) {
-                    IfLetStore(store.scope(state: \.firstModal, action: ContentAction.firstModal)) { store in
-                        FirstModalView(store: store)
+                    .padding()
+                    .fullScreenCover(
+                        isPresented: viewStore.binding(
+                            get: \.firstModal,
+                            send: { _ in ContentAction.hideFirstModal }
+                        ).mappedToBool()
+                    ) {
+                        IfLetStore(store.scope(state: \.firstModal, action: ContentAction.firstModal)) { store in
+                            FirstModalView(store: store)
+                        }
                     }
                 }
             }
