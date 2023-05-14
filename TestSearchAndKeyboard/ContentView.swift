@@ -14,27 +14,29 @@ struct ContentView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
+            TabView {
+                VStack {
+                    Image(systemName: "globe")
+                        .imageScale(.large)
+                        .foregroundColor(.accentColor)
+                    Text("Hello, world!")
 
-                Button {
-                    viewStore.send(.showFirstModal)
-                } label: {
-                    Text("Show FirstModalSearch")
+                    Button {
+                        viewStore.send(.showFirstModal)
+                    } label: {
+                        Text("Show FirstModalSearch")
+                    }
                 }
-            }
-            .padding()
-            .fullScreenCover(
-                isPresented: viewStore.binding(
-                    get: \.firstModal,
-                    send: { _ in ContentAction.hideFirstModal }
-                ).mappedToBool()
-            ) {
-                IfLetStore(store.scope(state: \.firstModal, action: ContentAction.firstModal)) { store in
-                    FirstModalView(store: store)
+                .padding()
+                .fullScreenCover(
+                    isPresented: viewStore.binding(
+                        get: \.firstModal,
+                        send: { _ in ContentAction.hideFirstModal }
+                    ).mappedToBool()
+                ) {
+                    IfLetStore(store.scope(state: \.firstModal, action: ContentAction.firstModal)) { store in
+                        FirstModalView(store: store)
+                    }
                 }
             }
         }
@@ -94,7 +96,7 @@ struct SecondModalView: View {
                     get: \.text,
                     send: { SecondModalAction.textChanged($0) }
                 ), label: "SecongModalSearch")
-                Text("SecongModalSearch")
+                Text("SecongModalSearch \(viewStore.text)")
             }
             .background(Color.orange)
         }
