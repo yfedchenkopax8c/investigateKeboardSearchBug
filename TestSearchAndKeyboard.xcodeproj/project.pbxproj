@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82B545672A10ECD400250DC5 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5455D2A10ECD400250DC5 /* NavigationBarView.swift */; };
+		82B545682A10ECD400250DC5 /* NavigationBarViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5455E2A10ECD400250DC5 /* NavigationBarViewStyle.swift */; };
+		82B545692A10ECD400250DC5 /* NavigationLinkDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B5455F2A10ECD400250DC5 /* NavigationLinkDecorator.swift */; };
+		82B5456A2A10ECD400250DC5 /* NavigationContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B545612A10ECD400250DC5 /* NavigationContainerView.swift */; };
+		82B5456B2A10ECD400250DC5 /* NavigationContainerViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B545622A10ECD400250DC5 /* NavigationContainerViewStyle.swift */; };
+		82B5456C2A10ECD400250DC5 /* View+PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B545642A10ECD400250DC5 /* View+PreferenceKeys.swift */; };
+		82B5456D2A10ECD400250DC5 /* PreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B545652A10ECD400250DC5 /* PreferenceKeys.swift */; };
+		82B5456E2A10ECD400250DC5 /* NavigationViewDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82B545662A10ECD400250DC5 /* NavigationViewDecorator.swift */; };
 		82CF19002A10D2D600AE3457 /* TestSearchAndKeyboardApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CF18FF2A10D2D600AE3457 /* TestSearchAndKeyboardApp.swift */; };
 		82CF19022A10D2D600AE3457 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82CF19012A10D2D600AE3457 /* ContentView.swift */; };
 		82CF19042A10D2D700AE3457 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 82CF19032A10D2D700AE3457 /* Assets.xcassets */; };
@@ -35,6 +43,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		82B5455D2A10ECD400250DC5 /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
+		82B5455E2A10ECD400250DC5 /* NavigationBarViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarViewStyle.swift; sourceTree = "<group>"; };
+		82B5455F2A10ECD400250DC5 /* NavigationLinkDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationLinkDecorator.swift; sourceTree = "<group>"; };
+		82B545612A10ECD400250DC5 /* NavigationContainerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContainerView.swift; sourceTree = "<group>"; };
+		82B545622A10ECD400250DC5 /* NavigationContainerViewStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationContainerViewStyle.swift; sourceTree = "<group>"; };
+		82B545642A10ECD400250DC5 /* View+PreferenceKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "View+PreferenceKeys.swift"; sourceTree = "<group>"; };
+		82B545652A10ECD400250DC5 /* PreferenceKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferenceKeys.swift; sourceTree = "<group>"; };
+		82B545662A10ECD400250DC5 /* NavigationViewDecorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewDecorator.swift; sourceTree = "<group>"; };
 		82CF18FC2A10D2D600AE3457 /* TestSearchAndKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TestSearchAndKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		82CF18FF2A10D2D600AE3457 /* TestSearchAndKeyboardApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSearchAndKeyboardApp.swift; sourceTree = "<group>"; };
 		82CF19012A10D2D600AE3457 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,9 +89,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		82B5455B2A10ECD400250DC5 /* NavigationViewDecorator */ = {
+			isa = PBXGroup;
+			children = (
+				82B5455C2A10ECD400250DC5 /* NavigationBar */,
+				82B5455F2A10ECD400250DC5 /* NavigationLinkDecorator.swift */,
+				82B545602A10ECD400250DC5 /* NavigationContainer */,
+				82B545632A10ECD400250DC5 /* Keys */,
+				82B545662A10ECD400250DC5 /* NavigationViewDecorator.swift */,
+			);
+			path = NavigationViewDecorator;
+			sourceTree = "<group>";
+		};
+		82B5455C2A10ECD400250DC5 /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				82B5455D2A10ECD400250DC5 /* NavigationBarView.swift */,
+				82B5455E2A10ECD400250DC5 /* NavigationBarViewStyle.swift */,
+			);
+			path = NavigationBar;
+			sourceTree = "<group>";
+		};
+		82B545602A10ECD400250DC5 /* NavigationContainer */ = {
+			isa = PBXGroup;
+			children = (
+				82B545612A10ECD400250DC5 /* NavigationContainerView.swift */,
+				82B545622A10ECD400250DC5 /* NavigationContainerViewStyle.swift */,
+			);
+			path = NavigationContainer;
+			sourceTree = "<group>";
+		};
+		82B545632A10ECD400250DC5 /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				82B545642A10ECD400250DC5 /* View+PreferenceKeys.swift */,
+				82B545652A10ECD400250DC5 /* PreferenceKeys.swift */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
 		82CF18F32A10D2D600AE3457 = {
 			isa = PBXGroup;
 			children = (
+				82CF192D2A10EA7D00AE3457 /* Packages */,
 				82CF18FE2A10D2D600AE3457 /* TestSearchAndKeyboard */,
 				82CF190F2A10D2D800AE3457 /* TestSearchAndKeyboardTests */,
 				82CF19192A10D2D800AE3457 /* TestSearchAndKeyboardUITests */,
@@ -96,6 +152,7 @@
 		82CF18FE2A10D2D600AE3457 /* TestSearchAndKeyboard */ = {
 			isa = PBXGroup;
 			children = (
+				82B5455B2A10ECD400250DC5 /* NavigationViewDecorator */,
 				82CF18FF2A10D2D600AE3457 /* TestSearchAndKeyboardApp.swift */,
 				82CF19012A10D2D600AE3457 /* ContentView.swift */,
 				82CF19032A10D2D700AE3457 /* Assets.xcassets */,
@@ -127,6 +184,13 @@
 				82CF191C2A10D2D800AE3457 /* TestSearchAndKeyboardUITestsLaunchTests.swift */,
 			);
 			path = TestSearchAndKeyboardUITests;
+			sourceTree = "<group>";
+		};
+		82CF192D2A10EA7D00AE3457 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Packages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +329,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82B545682A10ECD400250DC5 /* NavigationBarViewStyle.swift in Sources */,
+				82B545692A10ECD400250DC5 /* NavigationLinkDecorator.swift in Sources */,
 				82CF19022A10D2D600AE3457 /* ContentView.swift in Sources */,
 				82CF19002A10D2D600AE3457 /* TestSearchAndKeyboardApp.swift in Sources */,
+				82B5456D2A10ECD400250DC5 /* PreferenceKeys.swift in Sources */,
+				82B5456A2A10ECD400250DC5 /* NavigationContainerView.swift in Sources */,
+				82B5456E2A10ECD400250DC5 /* NavigationViewDecorator.swift in Sources */,
+				82B5456C2A10ECD400250DC5 /* View+PreferenceKeys.swift in Sources */,
+				82B5456B2A10ECD400250DC5 /* NavigationContainerViewStyle.swift in Sources */,
+				82B545672A10ECD400250DC5 /* NavigationBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             TabView {
-                NavigationView {
+                NavigationViewDecorator {
                     VStack {
                         Image(systemName: "globe")
                             .imageScale(.large)
@@ -41,6 +41,17 @@ struct ContentView: View {
                         }
                     }
                 }
+                .navigationBarViewStyle(
+                    Pax8NavigationViewStyle(
+                        trailingItem: {
+                            EmptyView()
+                        },
+                        menuItem: {
+                            Color.brown
+                        },
+                        defaultAccentColor: .black
+                    )
+                )
             }
         }
     }
@@ -52,36 +63,39 @@ struct FirstModalView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack {
-                LabeledSearchBarView(text: viewStore.binding(
-                    get: \.text,
-                    send: { FirstModalAction.textChanged($0) }
-                ), label: "FirstModalSearch")
-                Button {
-                    viewStore.send(.showSecondModal)
-                } label: {
-                    Text("Show SecondModalSearch")
-                }
-            }
-            .frame(
-                minWidth: 0,
-                maxWidth: .infinity,
-                minHeight: 0,
-                maxHeight: .infinity,
-                alignment: .topLeading
-            )
-            .background(Color.green)
-            .transparentFullScreenCover(
-                isPresented: viewStore.binding(
-                    get: \.secondModal,
-                    send: { _ in FirstModalAction.hideSecondModal }
-                ).mappedToBool()
-            ) {
-                IfLetStore(store.scope(state: \.secondModal, action: FirstModalAction.secondModal)) { store in
-                    BottomPopoverContainer {
-                        SecondModalView(store: store)
+            NavigationViewDecorator {
+                VStack {
+                    LabeledSearchBarView(text: viewStore.binding(
+                        get: \.text,
+                        send: { FirstModalAction.textChanged($0) }
+                    ), label: "FirstModalSearch")
+                    Button {
+                        viewStore.send(.showSecondModal)
+                    } label: {
+                        Text("Show SecondModalSearch")
                     }
                 }
+                .frame(
+                    minWidth: 0,
+                    maxWidth: .infinity,
+                    minHeight: 0,
+                    maxHeight: .infinity,
+                    alignment: .topLeading
+                )
+                .background(Color.green)
+                .transparentFullScreenCover(
+                    isPresented: viewStore.binding(
+                        get: \.secondModal,
+                        send: { _ in FirstModalAction.hideSecondModal }
+                    ).mappedToBool()
+                ) {
+                    IfLetStore(store.scope(state: \.secondModal, action: FirstModalAction.secondModal)) { store in
+                        BottomPopoverContainer {
+                            SecondModalView(store: store)
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -311,6 +325,109 @@ struct BottomPopoverContainer<Content: View>: View {
             .frame(maxHeight: 300)
             .fixedSize(horizontal: false, vertical: true)
             .transition(.move(edge: .bottom))
+        }
+    }
+}
+
+struct Pax8NavigationViewStyle<TrailingItem: View, MenuItem: View>: NavigationBarViewStyle {
+    private let constantTrailingItem: TrailingItem?
+    private let menuItem: MenuItem?
+
+    /// Tint color for all navigation items.
+    ///
+    /// Will replace any `nil` tint color provided via child preferences.
+    private let defaultAccentColor: Color?
+    /// Constrained width for leading and trailing groups of items.
+    ///
+    /// It's not trivial to have equal width both for leading and trailing items in SwiftUI, thus
+    /// we just use a constant matching with design for now.
+    private let groupWidth: CGFloat = 80
+    /// Height of the navigation bar
+    private let navigationBarHeight: CGFloat = 44
+    /// Paddings (according to the design)
+    private let paddingWidth: CGFloat = 16
+
+    init(
+        @ViewBuilder
+        trailingItem: () -> TrailingItem?,
+        @ViewBuilder
+        menuItem: () -> MenuItem?,
+        defaultAccentColor: Color? = .black
+    ) {
+        self.constantTrailingItem = trailingItem()
+        self.menuItem = menuItem()
+        self.defaultAccentColor = defaultAccentColor
+    }
+
+    func makeBody(configuration: Configuration) -> some View {
+        HStack(alignment: .center, spacing: 0) {
+            HStack(spacing: 0) {
+                makeLeading(configuration: configuration)
+                Spacer()
+            }
+            .frame(width: groupWidth)
+
+            Spacer()
+
+            makeTitle(configuration: configuration)
+                .frame(maxWidth: .infinity)
+                .layoutPriority(1)
+
+            Spacer()
+
+            HStack {
+                Spacer()
+                makeTrailing(configuration: configuration)
+            }
+            .frame(width: groupWidth)
+        }
+        .padding(.horizontal, paddingWidth)
+        .padding(.vertical)
+        .frame(height: navigationBarHeight)
+        .fixedSize(horizontal: false, vertical: true)
+        .accentColor(configuration.tintColor ?? defaultAccentColor)
+        .foregroundColor(configuration.tintColor ?? defaultAccentColor)
+    }
+
+    private func makeTitle(configuration: Configuration) -> some View {
+        VStack(alignment: .center, spacing: 0) {
+            Text(configuration.title)
+                .font(.system(size: 17, weight: .semibold, design: .default))
+                .kerning(-0.41)
+                .frame(height: 22)
+
+            configuration.subtitle.flatMap(Text.init)
+                .font(.system(size: 11))
+                .foregroundColor(.gray.opacity(0.6))
+        }
+        .multilineTextAlignment(.center)
+        .lineLimit(1)
+    }
+
+    @ViewBuilder
+    private func makeLeading(configuration: Configuration) -> some View {
+        if configuration.isBackItemVisible {
+            Button(action: {
+                configuration.backItemAction()
+            }, label: {
+                Image(systemName: "chevron.left")
+                    .font(.system(size: 19))
+                    .imageScale(.large)
+            })
+            .frame(width: 14, height: 36, alignment: .center)
+        } else {
+            menuItem
+        }
+    }
+
+    private func makeTrailing(configuration: Configuration) -> some View {
+        Group {
+            if constantTrailingItem == nil {
+                EmptyView()
+            } else {
+                constantTrailingItem?
+                    .fixedSize()
+            }
         }
     }
 }
